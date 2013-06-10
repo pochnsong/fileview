@@ -1,0 +1,67 @@
+格式化文件查看器 
+FileView
+
+专业的文件查看查看工具，可以定制化查询过程。
+
+参数：
+
+--help(无参数)
+	显示帮助。
+
+--version(无参数)
+	显示版本信息。
+--file=(参数)(强制)
+	需要查看的文件。
+
+--coding=(参数)
+	指定文件编码。默认为 "utf8" 。(只对char类型生效)
+
+--script=(参数)(可忽略)
+	定制化文件查询脚本。
+--save=(参数)(可忽略)
+	将结果另存为 (参数) 文件！
+--load=(True|False)
+	是否将文件读入内存中。默认False!
+-v
+	显示过程.
+--display=(True|False)
+	是否在控制台输出显示.
+	
+脚本规则：
+  数据类型:
+  byte char char_1 char_2 
+  int int_1 int_2_a int_2_z int_4_a int_4_z
+  uint uint_1 uint_2 uint_2_z uint_4_a uint_4_z
+
+  char=char_1 int=int_1 uint=uint_1
+  
+  byte 读取一个字节，不在屏幕上显示
+  双引号""，设置显示格式。用来替换默认的 " ".
+  支持转义字符 \n \r \t 
+  默认的显示分割符为 一个空格 " ";
+  冒号 ":" 设置重复次数
+  括号 "()" 设置数据块,可接 ":" 。 
+  命名规则： 
+	显示类型_读取字节
+	显示类型_读取字节_内存位顺序 (a=正向 z=负向)
+  简写示例：
+  char:3=char char char
+  (int char):2=int char int char
+  (char "-"):3=char "-" char "-" char "-"
+  (uint:2 char:3):2=
+	uint uint char char char uint uint char char char 
+
+  变量：
+	变量以$开始。正则定义：[$][A-Za-z]([A-Za-z]|[0-9]|_)*
+	定义：
+	数据类型=$变量名称
+	使用：
+	变量必需放在表达式中使用。
+ 	
+  表达式：
+	以"["开始以"]"结束，不支持嵌套使用。
+	表达式运算结果为整数。
+  示例1:
+(uint):*
+运行结果 ： xxx xxx xxx xxx ...
+
